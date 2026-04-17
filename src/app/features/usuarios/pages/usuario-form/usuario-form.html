@@ -1,0 +1,69 @@
+<div class="page-container">
+  <mat-card class="form-card">
+    <h2>Registro de usuario</h2>
+
+    <form [formGroup]="form" (ngSubmit)="guardar()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nombre de usuario</mat-label>
+        <input matInput formControlName="nombreUsuario" />
+        <mat-error *ngIf="form.get('nombreUsuario')?.hasError('required')">
+          El nombre de usuario es obligatorio
+        </mat-error>
+        <mat-error *ngIf="form.get('nombreUsuario')?.hasError('maxlength')">
+          Máximo 100 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput type="email" formControlName="email" />
+        <mat-error *ngIf="form.get('email')?.hasError('required')">
+          El correo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="form.get('email')?.hasError('email')">
+          Ingrese un correo válido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="clave" />
+        <mat-error *ngIf="form.get('clave')?.hasError('required')">
+          La contraseña es obligatoria
+        </mat-error>
+        <mat-error *ngIf="form.get('clave')?.hasError('minlength')">
+          La contraseña debe tener al menos 6 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Rol</mat-label>
+        <mat-select formControlName="rol">
+          <mat-option value="Administrador">Administrador</mat-option>
+          <mat-option value="Usuario">Usuario</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('rol')?.hasError('required')">
+          El rol es obligatorio
+        </mat-error>
+      </mat-form-field>
+
+      <div class="success" *ngIf="mensajeExito">
+        {{ mensajeExito }}
+      </div>
+
+      <div class="error" *ngIf="mensajeError">
+        {{ mensajeError }}
+      </div>
+
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit">
+          Guardar usuario
+        </button>
+
+        <button mat-stroked-button color="accent" type="button" (click)="irALista()">
+          Ver lista
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>
